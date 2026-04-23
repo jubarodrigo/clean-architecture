@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package order.v1;
+
+option go_package = "github.com/rodrigocavalhero/clean_arch_orders_list/internal/infra/grpc/pb/order/v1;orderv1";
+
+// OrderService expõe operações gRPC sobre pedidos.
+service OrderService {
+  rpc ListOrders (ListOrdersRequest) returns (ListOrdersResponse);
+}
+
+message ListOrdersRequest {}
+
+message ListOrdersResponse {
+  repeated Order orders = 1;
+}
+
+message Order {
+  string id = 1;
+  string customer = 2;
+  string description = 3;
+  double amount = 4;
+  string created_at = 5; // RFC3339
+}
