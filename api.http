@@ -1,0 +1,23 @@
+### Criar uma order (REST – Chi)
+POST http://localhost:8080/order
+Content-Type: application/json
+
+{
+  "customer": "Maria Silva",
+  "description": "Pedido de teste",
+  "amount": 99.9
+}
+
+### Listar orders (REST) — GET /order
+GET http://localhost:8080/order
+
+### GraphQL (gqlgen) — listOrders e createOrder — API em /query (ver playground em /)
+POST http://localhost:8081/query
+Content-Type: application/json
+
+{
+  "query": "query { listOrders { id customer description amount createdAt } }"
+}
+
+### gRPC — ListOrders (reflection ativada)
+# grpcurl -plaintext -d '{}' localhost:50051 order.v1.OrderService/ListOrders
