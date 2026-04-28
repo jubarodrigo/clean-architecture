@@ -15,14 +15,15 @@ type WebServer struct {
 
 // NewWebServer cria o servidor HTTP com router Chi.
 func NewWebServer(serverPort string) *WebServer {
+	r := chi.NewRouter()
+	r.Use(middleware.Logger)
 	return &WebServer{
-		Router:        chi.NewRouter(),
+		Router:        r,
 		WebServerPort: serverPort,
 	}
 }
 
-// Start aplica log e escuta a porta. Registre rotas com ws.Router em main antes.
+// Start escuta a porta. Middlewares já estão aplicados em NewWebServer antes das rotas.
 func (s *WebServer) Start() error {
-	s.Router.Use(middleware.Logger)
 	return http.ListenAndServe(s.WebServerPort, s.Router)
 }
